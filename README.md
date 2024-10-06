@@ -4,6 +4,8 @@
 
 Made using **Python 3.11** + **Flask**.
 
+Testing is done using **pytest** module.
+
 ## Important Instructions
 Using Swagger UI:
 - Use: `http://localhost:5000/docs`
