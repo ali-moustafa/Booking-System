@@ -16,7 +16,6 @@ class TestApi:
     user_1_email = user_1 = None
     author_1_id = author_1 = None
     book_1_id = book_1 = None
-    book_2_id = book_2 = None
 
     def test_create_user(self, test_client):
         TestApi.user_1 = {
