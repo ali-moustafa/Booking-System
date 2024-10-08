@@ -1,11 +1,14 @@
 from . import books
 from . import authors
+from . import users
 from . import auth
+
 
 MODULES = (
     auth,
     authors,
-    books
+    books,
+    users
 )
 
 

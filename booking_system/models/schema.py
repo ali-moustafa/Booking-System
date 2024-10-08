@@ -4,7 +4,7 @@ from marshmallow.validate import Length
 from marshmallow_sqlalchemy import field_for
 
 from booking_system.extensions.database import ma
-from booking_system.models import Book, Author
+from booking_system.models import Book, Author, User
 
 
 class BookSchema(ma.SQLAlchemySchema):
@@ -73,13 +73,44 @@ class AuthorQueryArgsSchema(mar.Schema):
     last_name = mar.fields.Str()
 
 
+class UserSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = User
+        ordered = True
+        unknown = EXCLUDE
+
+    # id = field_for(User, "id", dump_only=True)
+    first_name = field_for(User, "first_name", required=True)
+    last_name = field_for(User, "last_name", required=True)
+    email = field_for(User, "email", required=True)
+    created_at = field_for(User, "created_at", dump_only=True)
+    updated_at = field_for(User, "updated_at", dump_only=True)
+
+    def update(self, obj, data):
+        loadable_fields = [
+            k for k, v in self.fields.items() if not v.dump_only
+        ]
+        for name in loadable_fields:
+            setattr(obj, name, data.get(name))
+
+
+class UserQueryArgsSchema(mar.Schema):
+    class Meta:
+        unknown = EXCLUDE
+        ordered = True
+
+    first_name = mar.fields.Str()
+    last_name = mar.fields.Str()
+    email = mar.fields.Str()
+
+
 class LoginQueryArgsSchema(mar.Schema):
     class Meta:
         unknown = EXCLUDE
         ordered = True
 
     user_email = mar.fields.Str(required=True)
-    password = mar.fields.Str(required=True, validate=Length(min=2, max=8))
+    # password = mar.fields.Str(required=True, validate=Length(min=2, max=8))
 
 
 class JWTSchema(mar.Schema):
