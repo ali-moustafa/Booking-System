@@ -45,7 +45,12 @@ $ pip install -r requirements.txt
 run app from CLI:
 ```bash
 $ cd <path_to_root_directory>
+```
+```bash
 $ python booking_system/app.py
+```
+```bash
+$ python -m pytest unit_tests/test_api.py
 ```
 
 ### Docker

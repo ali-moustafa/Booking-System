@@ -12,6 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Project files
 COPY booking_system booking_system
 COPY .flaskenv .flaskenv
+COPY unit_tests unit_tests
 
 EXPOSE 5000
 ENTRYPOINT ["python", "booking_system/app.py"]
