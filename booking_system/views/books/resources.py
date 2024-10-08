@@ -1,5 +1,3 @@
-"""Books resources"""
-
 from flask.views import MethodView
 from flask_jwt_extended import jwt_required
 from flask_smorest import abort

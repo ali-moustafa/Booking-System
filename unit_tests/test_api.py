@@ -39,7 +39,7 @@ class TestApi:
         TestApi.author_1 = {
             "first_name": "auther_fname",
             "last_name": "auther_lname",
-            "birth_date": dt.datetime(1958, 10, 2).strftime('%Y-%m-%d')
+            "birth_date": dt.datetime(1999, 10, 2).strftime('%Y-%m-%d')
         }
         headers_jwt = {
             'Authorization': 'Bearer {}'.format(TestApi.jwt_token)
