@@ -1,5 +1,7 @@
 from flask.views import MethodView
 from flask_jwt_extended import jwt_required
+from flask_smorest import abort
+from sqlalchemy.exc import SQLAlchemyError
 
 from booking_system.extensions.api import Blueprint, SQLCursorPage
 from booking_system.extensions.database import db
@@ -29,8 +31,14 @@ class Users(MethodView):
     @blp.doc(security=[{"bearerAuth": []}])
     def post(self, new_item):
         item = User(**new_item)
-        db.session.add(item)
-        db.session.commit()
+        try:
+            db.session.add(item)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            message = [str(x) for x in e.args]
+            abort(400, message=e.__class__.__name__, errors=message)
+
         return item
 
 
